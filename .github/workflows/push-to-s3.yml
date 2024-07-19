@@ -1,7 +1,8 @@
 name: push-to-s3
 
 on:
-  workflow_dispatch:
+  repository_dispatch:
+    types: [trigger-from-dev-docs]
 
 jobs:
   push-to-s3:
