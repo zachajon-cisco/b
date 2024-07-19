@@ -4,30 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-runner:
-    name: Get a runner label to use for entire workflow
-    runs-on: [self-hosted, org-runner, sl-core]
-    outputs:
-      RUNNER: ${{ steps.name.outputs.runner }}
-    steps:
-      - id: name
-        run: echo "runner=$(printf ${{ runner.name }} | tail -c 20)" >> $GITHUB_OUTPUT
-
   push-to-s3:
     name: "Push Hugo Site To S3"
-    runs-on: ${{ needs.get-runner.outputs.runner }}
-    needs:
-      - get-runner
+    runs-on: ubuntu:latest
     steps:
       - name: "Push Hugo Site To S3"
         shell: bash
         run: echo "Hello World"
 
-  clean-runner:
-    uses: cisco-sbg/talos-releng-shared-workflows/.github/workflows/clean-runner.yml@main
-    name: Clean runner
-    needs:
-      - get-runner
-      - push-to-s3
-    with:
-      runner: ${{ needs.get-runner.outputs.RUNNER }}
