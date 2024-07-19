@@ -6,7 +6,7 @@ on:
 jobs:
   push-to-s3:
     name: "Push Hugo Site To S3"
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       - name: "Push Hugo Site To S3"
         shell: bash
